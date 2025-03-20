@@ -1,10 +1,11 @@
 ---@type string[]
-local boxes = {}
+local board = {}
 do
     for _ = 1, 9 do
-        table.insert(boxes, " ")
+        table.insert(board, " ")
     end
 end
+
 
 ---@return number
 local function get_move()
@@ -18,7 +19,8 @@ local function get_move()
     return pos_idx
 end
 
----@param b string[] Boxes containing state of the game
+
+---@param b string[] board containing state of the game
 ---@return string
 local function get_pretty_board(b)
     local pretty_board = ""
@@ -33,11 +35,30 @@ local function get_pretty_board(b)
     return pretty_board
 end
 
+
+---@param p string player: "x" or "o"
+---@return nil
+local function update_board(p)
+    local is_legal_move = false
+    local pos = 0
+    while not is_legal_move do
+        pos = get_move()
+        if board[pos] == " " then
+            is_legal_move = true
+            break
+        end
+        print("That's an illegal move! Choose again!")
+    end
+    board[pos] = p
+end
+
+
 ---@return nil
 local function main()
-    local pos = get_move()
-    print(pos .. " " .. boxes[pos])
-    print(get_pretty_board(boxes))
+    update_board("x")
+    print(get_pretty_board(board))
+    update_board("o")
+    print(get_pretty_board(board))
 end
 
 main()
