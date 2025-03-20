@@ -1,3 +1,4 @@
+---@type string[]
 local boxes = {}
 do
     for _ = 1, 9 do
